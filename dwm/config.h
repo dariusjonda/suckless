@@ -59,23 +59,25 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]              = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
-static const char *termcmd[]               = { "st", NULL };
-static const char *popmastercmd[]          = { "st", "-n", "popmaster", "-g", "90x30", NULL };
-static const char *cr_pop[]           = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
-static const char *waka_pop[]           = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
-static const char *netflix[]               = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *netflix_pop[]           = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *ytaudio[]               = { "st", "-n", "media", "-e", "ytm_kiosk", "-tml", NULL };
-static const char *ytvideo[]               = { "st", "-n", "popmaster", "-e", "yt_kiosk", "-tl", NULL };
-static const char *ebook[]                 = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
-static const char *ebookpop[]              = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
-static const char *browsercmd[]            = { "firefox", NULL };
-static const char *plexpop[]               = { "plexmediaplayer", NULL };
-static const char *vimwiki[]               = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
-static const char *workwiki[]              = { "st", "-n", "wiki", "-e", "workwiki", NULL };
-static const char *ranger[]                = { "st", "-e", "ranger", NULL };
-static const char *rangerpop[]             = { "st", "-n", "pop", "-e", "ranger", NULL };
+static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
+static const char *termcmd[]           = { "st", NULL };
+static const char *popmastercmd[]      = { "st", "-n", "popmaster", "-g", "90x30", NULL };
+static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
+static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
+static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
+static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
+static const char *ytaudio[]           = { "st", "-n", "media", "-e", "ytm_kiosk", "-tml", NULL };
+static const char *ytvideo[]           = { "st", "-n", "popmaster", "-e", "yt_kiosk", "-tl", NULL };
+static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
+static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
+static const char *browsercmd[]        = { "firefox", NULL };
+static const char *plexpop[]           = { "plexmediaplayer", NULL };
+static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
+static const char *workwiki[]          = { "st", "-n", "wiki", "-e", "workwiki", NULL };
+static const char *ranger[]            = { "st", "-e", "ranger", NULL };
+static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
+static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
+static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
 #include "movestack.c"
 #include <X11/XF86keysym.h>
@@ -108,11 +110,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_k,                       movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_l,                       tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
 	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
 	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = netflix_pop } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
-	{ MODKEY|ShiftMask,             XK_q,                       quit,           {0} },
+	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
+	// { MODKEY|ShiftMask,             XK_q,                       quit,           {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
 	{ MODKEY|ShiftMask,             XK_r,                       spawn,          {.v = rangerpop } },
 	{ MODKEY,                       XK_s,                       spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
