@@ -20,17 +20,18 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "code", "wiki", "book", "misc" };
+static const char *tags[] = { "main", "code", "wiki", "book", "mail", "misc" };
 
 static const Rule rules[] = {
-	/* class     instance  title           tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
+	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
 	{ "st",      NULL,     NULL,           0,         0,  		0,          1,          1,           0,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "media",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "media",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
 
@@ -70,7 +71,10 @@ static const char *ytaudio[]           = { "st", "-n", "media", "-e", "ytm_kiosk
 static const char *ytvideo[]           = { "st", "-n", "popmaster", "-e", "yt_kiosk", "-tl", NULL };
 static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
-static const char *browsercmd[]        = { "firefox", NULL };
+static const char *email[]             = { "st", "-n", "email", "-e", "mutt", NULL };
+static const char *emailpop[]          = { "st", "-n", "pop", "-e", "mutt", NULL };
+static const char *browsercmd[]        = { "brave", NULL };
+static const char *torcmd[]            = { "tor-browser", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
 static const char *workwiki[]          = { "st", "-n", "wiki", "-e", "workwiki", NULL };
@@ -98,8 +102,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_a,                       spawn,          {.v = waka_pop } },
 	{ MODKEY,                       XK_b,                       togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_c,                       killclient,     {0} },
-	{ MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
+  { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
+	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = emailpop } },
 	{ MODKEY,                       XK_f,                       spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = torcmd } },
 	{ MODKEY,                       XK_g,                       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_h,                       setmfact,       {.f = -0.05} },
 	{ MODKEY|ShiftMask,             XK_h,                       tagmon,         {.i = -1 } },
