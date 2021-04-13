@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "code", "wiki", "book", "mail", "misc" };
+static const char *tags[] = { "main", "code", "wiki", "book", "mail", "totp", "misc" };
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -31,7 +31,8 @@ static const Rule rules[] = {
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "media",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "nitro",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
 
@@ -73,13 +74,14 @@ static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_e
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "mutt", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-e", "mutt", NULL };
-static const char *browsercmd[]        = { "brave", NULL };
+static const char *browsercmd[]        = { "firefox", NULL };
 static const char *torcmd[]            = { "tor-browser", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
 static const char *workwiki[]          = { "st", "-n", "wiki", "-e", "workwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
+static const char *nitroapp[]          = { "st", "-n", "nitro", "-e", "nitrokey-app", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
@@ -120,7 +122,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
 	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
-	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = netflix_pop } },
+	{ MODKEY|ControlMask,           XK_n,                       spawn,          {.v = netflix_pop } },
+	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = nitroapp } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
 	// { MODKEY|ShiftMask,             XK_q,                       quit,           {.v = suspend} },
