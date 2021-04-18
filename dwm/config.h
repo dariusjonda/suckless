@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "code", "wiki", "book", "mail", "totp", "misc" };
+static const char *tags[] = { "main", "work", "wiki", "code", "book", "mail", "totp", "misc" };
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -29,15 +29,15 @@ static const Rule rules[] = {
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "nitro",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "ebook",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "email",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "nitro",  NULL,           1 << 6,    1,  		1,          1,          1,           0,        -1 },
+	{ "st",      "media",  NULL,           1 << 7,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.65; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
@@ -81,7 +81,7 @@ static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", 
 static const char *workwiki[]          = { "st", "-n", "wiki", "-e", "workwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
-static const char *nitroapp[]          = { "st", "-n", "nitro", "-e", "nitrokey-app", NULL };
+static const char *nitroapp[]          = { "st", "-n", "nitro", "-g", "90x30" "-e", "nitrokey-app", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
