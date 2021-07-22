@@ -1,7 +1,7 @@
 /* user and group to drop privileges to */
 static const char *user  = "cntrl";
 static const char *group = "cntrl";
-static const int timetocancel = 4;
+static const int timetocancel = 8;
 
 static const char *colorname[NUMCOLS] = {
 	[INIT] =   "black",     /* after initialization */
