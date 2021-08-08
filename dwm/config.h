@@ -73,8 +73,8 @@ static const char *ytaudio[]           = { "st", "-n", "media", "-e", "ytm_kiosk
 static const char *ytvideo[]           = { "st", "-n", "pop", "-e", "yt_kiosk", "-tl", NULL };
 static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
-static const char *email[]             = { "st", "-n", "email", "-e", "mutt", NULL };
-static const char *emailpop[]          = { "st", "-n", "pop", "-e", "mutt", NULL };
+static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
+static const char *emailpop[]          = { "st", "-n", "pop", "-e", "tutanota-desktop", NULL };
 static const char *browsercmd[]        = { "firefox", NULL };
 static const char *torcmd[]            = { "tor-browser", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
@@ -99,8 +99,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = popmastercmd } },
- 	// { MODKEY,                       XK_space,                   togglefloating, {0} },
-	{ MODKEY,                       XK_space,                   spawn,          {.v = dmenucmd } },
+  { MODKEY,                       XK_space,                   togglefloating, {0} },
+	// { MODKEY,                       XK_space,                   spawn,          {.v = dmenucmd } },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
 	{ MODKEY,                       XK_a,                       spawn,          {.v = cr_pop } },
