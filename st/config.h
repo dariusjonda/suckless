@@ -8,7 +8,7 @@
 // for HDMI // 4k multi monitor setup
 // static char *font = "FiraCode-Regular:pixelsize=25:antialias=true:autohint=true";
 // for laptop screen only
-static char *font = "FiraCode-Regular:pixelsize=17:antialias=true:autohint=true";
+static char *font = "FiraCode-Regular:pixelsize=23:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*

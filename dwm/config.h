@@ -69,8 +69,6 @@ static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_ki
 static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
 static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *ytaudio[]           = { "st", "-n", "media", "-e", "ytm_kiosk", "-tml", NULL };
-static const char *ytvideo[]           = { "st", "-n", "pop", "-e", "yt_kiosk", "-tl", NULL };
 static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
@@ -79,10 +77,11 @@ static const char *browsercmd[]        = { "firefox", NULL };
 static const char *torcmd[]            = { "tor-browser", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
-static const char *workwiki[]          = { "st", "-n", "wiki", "-e", "workwiki", NULL };
+static const char *vimwiki_quick[]     = { "st", "-e", "vimwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tq", NULL };
 static const char *ytfzf_audio[]       = { "st", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_subs[]        = { "st", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
 static const char *nitroapp[]          = { "st", "-n", "nitro", "-g", "90x30" "-e", "nitrokey-app", NULL };
@@ -102,7 +101,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = popmastercmd } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
-	// { MODKEY,                       XK_space,                   spawn,          {.v = dmenucmd } },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
 	{ MODKEY,                       XK_a,                       spawn,          {.v = cr_pop } },
@@ -131,18 +129,18 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = nitroapp } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
-	// { MODKEY|ShiftMask,             XK_q,                       quit,           {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
 	{ MODKEY|ShiftMask,             XK_r,                       spawn,          {.v = rangerpop } },
 	{ MODKEY,                       XK_s,                       spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
 	{ MODKEY|ControlMask,           XK_s,                       spawn,          SHCMD ("amixer sset Master mute")},
 	{ MODKEY|ShiftMask,             XK_s,                       spawn,          SHCMD ("amixer sset Master 5%- unmute")},
 	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_v,                       spawn,          {.v = vimwiki } },
-	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = workwiki } },
+	{ MODKEY,                       XK_v,                       spawn,          {.v = vimwiki_quick } },
+	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_audio } },
+	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
 	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = ebookpop } },
 	{ MODKEY,                       XK_0,                       view,           {.ui = ~0 } },

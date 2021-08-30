@@ -5,6 +5,7 @@ static const Block blocks[] = {
 	{"Battery:", "db_battery", 30, 0},
 	{"", "db_volume", 1, 0},
 	{"Mem:", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	30,		0},
+	{"ACPI Temp:", "sensors | grep edge | awk '{print $2}'",	5,		0},
 
 	{"", "date '+%b %d (%a) %I:%M%p'",					5,		0},
 };
