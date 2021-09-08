@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "work", "wiki", "book", "mail", "totp", "misc" };
+static const char *tags[] = { "main", "work", "wiki", "book", "mail", "tune"};
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -32,7 +32,6 @@ static const Rule rules[] = {
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "nitro",  NULL,           1 << 5,    1,  		1,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
@@ -79,12 +78,13 @@ static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
 static const char *vimwiki_quick[]     = { "st", "-e", "vimwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
+static const char *ncmpcpp[]           = { "st", "-e", "ncmpcpp", NULL };
+static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
 static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tq", NULL };
-static const char *ytfzf_audio[]       = { "st", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio[]       = { "st", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
-static const char *nitroapp[]          = { "st", "-n", "nitro", "-g", "90x30" "-e", "nitrokey-app", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
@@ -113,6 +113,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,                       spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = torcmd } },
 	{ MODKEY,                       XK_g,                       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,             XK_g,                       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ControlMask,           XK_g,                       setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_h,                       setmfact,       {.f = -0.05} },
 	{ MODKEY|ShiftMask,             XK_h,                       tagmon,         {.i = -1 } },
 	{ MODKEY,                       XK_i,                       incnmaster,     {.i = +1 } },
@@ -123,10 +125,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_l,                       tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
-	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp } },
+	{ MODKEY|ShiftMask,             XK_m,                       spawn,          {.v = ncmpcpp_pop } },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
 	{ MODKEY|ControlMask,           XK_n,                       spawn,          {.v = netflix_pop } },
-	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = nitroapp } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
