@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "work", "wiki", "code", "book", "mail", "totp", "misc" };
+static const char *tags[] = { "main", "work", "wiki", "book", "mail", "totp", "misc" };
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -30,15 +30,15 @@ static const Rule rules[] = {
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "vinagre", NULL,          1 << 1,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "ebook",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "email",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "nitro",  NULL,           1 << 6,    1,  		1,          1,          1,           0,        -1 },
-	{ "st",      "media",  NULL,           1 << 7,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "nitro",  NULL,           1 << 5,    1,  		1,          1,          1,           0,        -1 },
+	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact     = 0.65; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
@@ -143,6 +143,18 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
 	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = ebookpop } },
+ 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 50y 0w 0h" } },
+ 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -50y 0w 0h" } },
+ 	{ MODKEY,                       XK_Right,  moveresize,     {.v = "50x 0y 0w 0h" } },
+ 	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-50x 0y 0w 0h" } },
+ 	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 50h" } },
+ 	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -50h" } },
+ 	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 50w 0h" } },
+ 	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -50w 0h" } },
+ 	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
+ 	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
+ 	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
+ 	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
 	{ MODKEY,                       XK_0,                       view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,                       tag,            {.ui = ~0 } },
 	TAGKEYS(                        XK_1,                                       0)
