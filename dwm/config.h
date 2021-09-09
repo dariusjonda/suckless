@@ -63,7 +63,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]           = { "st", NULL };
-static const char *popmastercmd[]      = { "st", "-n", "popmaster", "-g", "90x30", NULL };
+static const char *popcmd[]            = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
 static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
 static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
@@ -71,17 +71,16 @@ static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netfl
 static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
-static const char *emailpop[]          = { "st", "-n", "pop", "-e", "tutanota-desktop", NULL };
+static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
 static const char *browsercmd[]        = { "firefox", NULL };
-static const char *torcmd[]            = { "tor-browser", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
 static const char *vimwiki_quick[]     = { "st", "-e", "vimwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ncmpcpp[]           = { "st", "-e", "ncmpcpp", NULL };
-static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
+static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
 static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tq", NULL };
-static const char *ytfzf_audio[]       = { "st", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio[]       = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
@@ -99,7 +98,7 @@ static Key keys[] = {
  	{ MODKEY|ControlMask,           XK_period,                  setcentered,    {0} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = popmastercmd } },
+	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = popcmd } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
@@ -111,7 +110,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
 	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = emailpop } },
 	{ MODKEY,                       XK_f,                       spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = torcmd } },
 	{ MODKEY,                       XK_g,                       setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_g,                       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ControlMask,           XK_g,                       setlayout,      {.v = &layouts[2]} },
