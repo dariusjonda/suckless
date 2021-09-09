@@ -8,7 +8,7 @@ static int mon = -1;
 
 static const char *asterisk = "*";
 static const char *fonts[] = {
-	"FiraCode-Regular:size=30"
+	"FiraCode-Regular:size=15"
 };
 static const char *prompt = NULL;
 static const char *colors[SchemeLast][4] = {
