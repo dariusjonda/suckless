@@ -1,0 +1,40 @@
+From 138b405f0c8aa24d8a040cc1a1cf6e3eb5a0ebc7 Mon Sep 17 00:00:00 2001
+From: Quentin Rameau <quinq@fifth.space>
+Date: Mon, 12 Jul 2021 23:44:16 +0200
+Subject: [PATCH 2/4] Add a configuration option for fullscreen locking
+
+Some people are annoyed to have this new behaviour forced for some
+application which use fake fullscreen.
+---
+ config.def.h | 1 +
+ dwm.c        | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..a2ac963 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -35,6 +35,7 @@ static const Rule rules[] = {
+ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+ static const int nmaster     = 1;    /* number of clients in master area */
+ static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
++static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+diff --git a/dwm.c b/dwm.c
+index b0b3466..5e4d494 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -835,7 +835,7 @@ focusstack(const Arg *arg)
+ {
+ 	Client *c = NULL, *i;
+ 
+-	if (!selmon->sel || selmon->sel->isfullscreen)
++	if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
+ 		return;
+ 	if (arg->i > 0) {
+ 		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+-- 
+2.33.0
+

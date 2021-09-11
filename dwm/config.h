@@ -7,8 +7,8 @@ static const unsigned int snap        = 0;        /* snap pixel */
 static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
-static const char *fonts[]            = { "FiraCode-Regular:size=10" };
-static const char dmenufont[]         = "FiraCode-Regular:size=10";
+static const char *fonts[]            = { "FiraCode-Regular:size=15" };
+static const char dmenufont[]         = "FiraCode-Regular:size=15";
 static const char col_cyan[]          = "#005577";
 static const char col_dark_grey[]     = "#030303";
 static const char col_green[]         = "#a3be8c";
@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "work", "wiki", "book", "mail", "tune"};
+static const char *tags[] = { "main", "tune", "wiki", "book", "mail", "work", "rest"};
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -28,10 +28,11 @@ static const Rule rules[] = {
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
-	{ "st",      "vinagre", NULL,          1 << 1,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "tune",  NULL,            1 << 1,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "vinagre", NULL,          1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
@@ -40,6 +41,7 @@ static const Rule rules[] = {
 static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -77,10 +79,11 @@ static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
 static const char *vimwiki_quick[]     = { "st", "-e", "vimwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
-static const char *ncmpcpp[]           = { "st", "-e", "ncmpcpp", NULL };
+static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
 static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tq", NULL };
-static const char *ytfzf_audio[]       = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
@@ -123,8 +126,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_l,                       tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
-	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp } },
+	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp_tune } },
 	{ MODKEY|ShiftMask,             XK_m,                       spawn,          {.v = ncmpcpp_pop } },
+	{ MODKEY|ControlMask,           XK_m,                       spawn,          {.v = ytfzf_audio_tune } },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
 	{ MODKEY|ControlMask,           XK_n,                       spawn,          {.v = netflix_pop } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
@@ -139,7 +143,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
-	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_audio } },
+	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
 	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = ebookpop } },

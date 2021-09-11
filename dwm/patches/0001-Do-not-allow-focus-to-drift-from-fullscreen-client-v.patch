@@ -1,0 +1,36 @@
+From 67d76bdc68102df976177de351f65329d8683064 Mon Sep 17 00:00:00 2001
+From: Chris Down <chris@chrisdown.name>
+Date: Thu, 2 Jul 2020 20:18:30 +0100
+Subject: [PATCH 1/4] Do not allow focus to drift from fullscreen client via
+ focusstack()
+
+It generally doesn't make much sense to allow focusstack() to navigate
+away from the selected fullscreen client, as you can't even see which
+client you're selecting behind it.
+
+I have had this up for a while on the wiki as a separate patch[0], but
+it seems reasonable to avoid this behaviour in dwm mainline, since I'm
+struggling to think of any reason to navigate away from a fullscreen
+client other than a mistake.
+
+0: https://dwm.suckless.org/patches/alwaysfullscreen/
+---
+ dwm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dwm.c b/dwm.c
+index 664c527..b0b3466 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -835,7 +835,7 @@ focusstack(const Arg *arg)
+ {
+ 	Client *c = NULL, *i;
+ 
+-	if (!selmon->sel)
++	if (!selmon->sel || selmon->sel->isfullscreen)
+ 		return;
+ 	if (arg->i > 0) {
+ 		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+-- 
+2.33.0
+
