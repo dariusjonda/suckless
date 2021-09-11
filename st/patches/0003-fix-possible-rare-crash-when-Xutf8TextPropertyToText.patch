@@ -1,0 +1,49 @@
+From 2f6e597ed871cff91c627850d03152cae5f45779 Mon Sep 17 00:00:00 2001
+From: Hiltjo Posthuma <hiltjo@codemadness.org>
+Date: Tue, 24 Aug 2021 13:44:35 +0200
+Subject: [PATCH 3/3] fix possible rare crash when Xutf8TextPropertyToTextList
+ fails
+
+from the XmbTextListToTextProperty(3) man page:
+
+"If insufficient memory is available for the new value string, the functions
+return XNoMemory.  If the current locale is not supported, the functions return
+XLocaleNotSupported.  In both of these error cases, the functions do not set
+text_prop_return."
+
+Reported by Steffen Nurpmeso <steffen@sdaoden.eu>, thanks!
+---
+ x.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/x.c b/x.c
+index 248d505..89786b8 100644
+--- a/x.c
++++ b/x.c
+@@ -1588,8 +1588,9 @@ xseticontitle(char *p)
+ 	XTextProperty prop;
+ 	DEFAULT(p, opt_title);
+ 
+-	Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
+-			&prop);
++	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
++	                                &prop) != Success)
++		return;
+ 	XSetWMIconName(xw.dpy, xw.win, &prop);
+ 	XSetTextProperty(xw.dpy, xw.win, &prop, xw.netwmiconname);
+ 	XFree(prop.value);
+@@ -1601,8 +1602,9 @@ xsettitle(char *p)
+ 	XTextProperty prop;
+ 	DEFAULT(p, opt_title);
+ 
+-	Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
+-			&prop);
++	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
++	                                &prop) != Success)
++		return;
+ 	XSetWMName(xw.dpy, xw.win, &prop);
+ 	XSetTextProperty(xw.dpy, xw.win, &prop, xw.netwmname);
+ 	XFree(prop.value);
+-- 
+2.33.0
+
