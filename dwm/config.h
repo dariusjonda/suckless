@@ -25,11 +25,12 @@ static const char *tags[] = { "main", "tune", "wiki", "book", "mail", "work", "r
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
 	{ "st",      NULL,     NULL,           0,         0,  		0,          1,          1,           0,        -1 },
+	{ "st",      "vim",    NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "tune",  NULL,            1 << 1,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          0,           1,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "vinagre", NULL,          1 << 5,    1,  		0,          1,          1,           0,        -1 },
@@ -63,9 +64,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
-static const char *termcmd[]           = { "st", NULL };
-static const char *popcmd[]            = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
+static const char *dmenucmd[]             = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
+static const char *st[]                = { "st", NULL };
+static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
 static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
 static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
@@ -77,9 +78,9 @@ static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f
 static const char *browsercmd[]        = { "firefox", NULL };
 static const char *flameshotgui[]      = { "st", "-e", "flameshot", "gui", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
+static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
 static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
-static const char *vim[]               = { "st", "-e", "nvim", NULL };
-static const char *vimwiki_quick[]     = { "st", "-e", "vimwiki", NULL };
+static const char *vimwiki_quick[]     = { "st", "-n", "vim", "-e", "vimwiki", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
@@ -102,8 +103,8 @@ static Key keys[] = {
  	{ MODKEY|ShiftMask,             XK_period,                  tagmon,         {.i = +1 } },
  	{ MODKEY|ControlMask,           XK_period,                  setcentered,    {0} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
-	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = popcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = st } },
+	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = stpop } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
@@ -142,9 +143,9 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_s,                       spawn,          SHCMD ("amixer sset Master mute")},
 	{ MODKEY|ShiftMask,             XK_s,                       spawn,          SHCMD ("amixer sset Master 5%- unmute")},
 	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_v,                       spawn,          {.v = vimwiki_quick } },
-	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki } },
-	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vim } },
+	{ MODKEY,                       XK_v,                       spawn,          {.v = vim } },
+	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki_quick } },
+	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vimwiki } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
@@ -183,7 +184,7 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = st } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
