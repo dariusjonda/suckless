@@ -24,7 +24,7 @@ static const char *tags[] = { "main", "tune", "wiki", "book", "mail", "work", "r
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
-	{ "st",      NULL,     NULL,           0,         0,  		0,          1,          1,           0,        -1 },
+	{ "st",      NULL,     NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "vim",    NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
