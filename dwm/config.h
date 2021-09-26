@@ -25,6 +25,7 @@ static const char *tags[] = { "main", "tune", "wiki", "book", "mail", "work", "r
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
 	{ "st",      NULL,     NULL,           0,         0,  		0,          1,          0,           1,        -1 },
+	{ "st",      "swallow",     NULL,      0,         0,  		0,          1,          1,           0,        -1 },
 	{ "st",      "vim",    NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
@@ -66,6 +67,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]             = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *st[]                = { "st", NULL };
+static const char *stswallow[]         = { "st", "-n", "stswallow", NULL };
 static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
 static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
 static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
@@ -104,17 +106,17 @@ static Key keys[] = {
  	{ MODKEY|ControlMask,           XK_period,                  setcentered,    {0} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = st } },
-	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = stpop } },
+	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = stswallow } },
+	{ MODKEY|ShiftMask|ControlMask, XK_Return,                  spawn,          {.v = stpop } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
-	{ MODKEY,                       XK_a,                       spawn,          {.v = cr_pop } },
-	{ MODKEY|ShiftMask,             XK_a,                       spawn,          {.v = waka_pop } },
 	{ MODKEY,                       XK_b,                       togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_c,                       killclient,     {0} },
+	{ MODKEY|ShiftMask|ControlMask, XK_c,                       spawn,          {.v = cr_pop } },
   { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
-	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = emailpop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailpop } },
 	{ MODKEY,                       XK_f,                       spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = flameshotgui } },
 	{ MODKEY,                       XK_g,                       setlayout,      {.v = &layouts[0]} },
@@ -131,14 +133,14 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,                       tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
 	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp_tune } },
-	{ MODKEY|ShiftMask,             XK_m,                       spawn,          {.v = ncmpcpp_pop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_m,                       spawn,          {.v = ncmpcpp_pop } },
 	{ MODKEY|ControlMask,           XK_m,                       spawn,          {.v = ytfzf_audio_tune } },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
-	{ MODKEY|ControlMask,           XK_n,                       spawn,          {.v = netflix_pop } },
-	{ MODKEY,                       XK_p,                       spawn,          {.v = plexpop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_n,                       spawn,          {.v = netflix_pop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
-	{ MODKEY|ShiftMask,             XK_r,                       spawn,          {.v = rangerpop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_r,                       spawn,          {.v = rangerpop } },
 	{ MODKEY,                       XK_s,                       spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
 	{ MODKEY|ControlMask,           XK_s,                       spawn,          SHCMD ("amixer sset Master mute")},
 	{ MODKEY|ShiftMask,             XK_s,                       spawn,          SHCMD ("amixer sset Master 5%- unmute")},
@@ -147,11 +149,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki_quick } },
 	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vimwiki } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
+	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka_pop } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
-	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
-	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = ebookpop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_z,                       spawn,          {.v = ebookpop } },
  	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 50y 0w 0h" } },
  	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -50y 0w 0h" } },
  	{ MODKEY,                       XK_Right,  moveresize,     {.v = "50x 0y 0w 0h" } },
