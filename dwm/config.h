@@ -67,7 +67,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]             = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *st[]                = { "st", NULL };
-static const char *stswallow[]         = { "st", "-n", "stswallow", NULL };
+static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
 static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
 static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
 static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
@@ -86,10 +86,10 @@ static const char *vimwiki_quick[]     = { "st", "-n", "vim", "-e", "vimwiki", N
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
-static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tq", NULL };
+static const char *ytfzf[]             = { "st", "-n", "swallow", "-e", "ytfzf", "-tq", NULL };
 static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
-static const char *ytfzf_subs[]        = { "st", "-e", "ytfzf", "-St", NULL };
+static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
