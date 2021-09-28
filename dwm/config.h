@@ -86,7 +86,7 @@ static const char *vimwiki_quick[]     = { "st", "-n", "vim", "-e", "vimwiki", N
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
-static const char *ytfzf[]             = { "st", "-n", "swallow", "-e", "ytfzf", "-tq", NULL };
+static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tql", "--detach", NULL };
 static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "-e", "ytfzf", "-St", NULL };
