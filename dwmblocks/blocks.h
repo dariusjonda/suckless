@@ -9,6 +9,7 @@ static const Block blocks[] = {
 	{"", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	30,		0},
 	{"GPU ", "sensors | grep edge | awk '{print $2}'",	5,		0},
 	{"CPU ", "sensors | grep Tctl | awk '{print $2}'",	5,		0},
+	{"/ ", "df -h /dev/mapper/cryptroot | tail -n 1 | awk {'print $5'}",	120,		0},
 	{"", "date '+%b %d (%a) %I:%M%p'",					5,		0},
 };
 
