@@ -69,12 +69,13 @@ static const char *dmenucmd[]             = { "dmenu_run", "-m", dmenumon, "-fn"
 static const char *st[]                = { "st", NULL };
 static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
 static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
-static const char *cr_pop[]            = { "st", "-n", "popmaster", "-e", "cr_kiosk", "-tml", NULL };
-static const char *waka_pop[]          = { "st", "-n", "popmaster", "-e", "waka_kiosk", "-tml", NULL };
+static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
+static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
 static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", NULL };
-static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", NULL };
+static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", "/nfs/ablage/ebooks", NULL };
+static const char *zathura[]           = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/", NULL };
+static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", "/home/cntrl/ebooks", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
 static const char *browsercmd[]        = { "firefox", NULL };
@@ -113,7 +114,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
 	{ MODKEY,                       XK_b,                       togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_c,                       killclient,     {0} },
-	{ MODKEY|ShiftMask|ControlMask, XK_c,                       spawn,          {.v = cr_pop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_c,                       spawn,          {.v = cr } },
   { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
 	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailpop } },
@@ -149,11 +150,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki_quick } },
 	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vimwiki } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
-	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka_pop } },
+	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
+	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = zathura } },
 	{ MODKEY|ShiftMask|ControlMask, XK_z,                       spawn,          {.v = ebookpop } },
  	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 50y 0w 0h" } },
  	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -50y 0w 0h" } },
