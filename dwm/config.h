@@ -74,7 +74,7 @@ static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_ki
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
 static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
 static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", "/nfs/ablage/ebooks", NULL };
-static const char *zathura[]           = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/", NULL };
+static const char *zathura[]           = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
 static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", "/home/cntrl/ebooks", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
