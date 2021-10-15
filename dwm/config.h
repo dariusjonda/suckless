@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          0,           1,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "vinagre", NULL,          1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "work", NULL,          1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
@@ -92,7 +92,8 @@ static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Re
 static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
-static const char *vinagre[]           = { "st", "-n", "vinagre", "-e", "vinagre", NULL };
+static const char *vinagre[]           = { "st", "-n", "work", "-e", "vinagre", NULL };
+static const char *lemonade[]          = { "st", "-n", "work", "-e", "lemonade", "server", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
@@ -149,7 +150,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,                       spawn,          {.v = vim } },
 	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki_quick } },
 	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vimwiki } },
-	{ MODKEY,                       XK_w,                       spawn,          {.v = vinagre } },
+	{ MODKEY,                       XK_w,                       spawn,          {.v = lemonade } },
+	{ MODKEY|ControlMask,           XK_w,                       spawn,          {.v = vinagre } },
 	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
