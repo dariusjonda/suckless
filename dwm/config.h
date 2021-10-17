@@ -13,10 +13,18 @@ static const char col_cyan[]          = "#005577";
 static const char col_dark_grey[]     = "#030303";
 static const char col_green[]         = "#a3be8c";
 static const char col_white[]         = "#ffffff";
-static const char *colors[][3]      = {
+static const char col_neon_fuchsia[]  = "#fe4164";
+static const unsigned int baralpha    = 0xd0;
+static const unsigned int borderalpha = OPAQUE;
+static const char *colors[][3]        = {
 	/*               fg                  bg                   border   */
 	[SchemeNorm] = { col_white,          col_dark_grey,       col_dark_grey },
 	[SchemeSel]  = { col_green,          col_dark_grey,       col_green },
+};
+static const unsigned int alphas[][3] = {
+	/*               fg                  bg                   border     */
+	[SchemeNorm] = { OPAQUE,             baralpha,            borderalpha },
+	[SchemeSel]  = { OPAQUE,             baralpha,            borderalpha },
 };
 
 /* tagging */
@@ -34,7 +42,7 @@ static const Rule rules[] = {
 	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          0,           1,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "work", NULL,          1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "work", NULL,             1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
