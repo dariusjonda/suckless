@@ -82,18 +82,17 @@ static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f
 static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
 static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *netflix_pop[]       = { "st", "-n", "popmaster", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *ebook[]             = { "st", "-n", "ebook", "-e", "zathura_ebook", "/nfs/ablage/ebooks", NULL };
-static const char *zathura[]           = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
-static const char *ebookpop[]          = { "st", "-n", "pop", "-e", "zathura_ebook", "/home/cntrl/ebooks", NULL };
+static const char *zathura_ebook[]     = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/ebooks", NULL };
+static const char *zathura_home[]      = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
 static const char *browsercmd[]        = { "firefox", NULL };
 static const char *flameshotgui[]      = { "st", "-e", "flameshot", "gui", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
+static const char *vim_todos[]         = { "st", "-n", "vim", "-e", "vim_todos", NULL };
 static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
-static const char *vimwiki[]           = { "st", "-n", "wiki", "-e", "vimwiki", NULL };
-static const char *vimwiki_quick[]     = { "st", "-n", "vim", "-e", "vimwiki", NULL };
+static const char *vim_wiki[]           = { "st", "-n", "wiki", "-e", "vim_wiki", NULL };
+static const char *vim_notes[]     = { "st", "-n", "vim", "-e", "vim_notes", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
@@ -102,8 +101,6 @@ static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Re
 static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
 static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "-e", "ytfzf", "-St", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
-static const char *vinagre[]           = { "st", "-n", "work", "-e", "vinagre", NULL };
-static const char *lemonade[]          = { "st", "-n", "work", "-e", "lemonade", "server", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 
@@ -148,8 +145,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp_tune } },
 	{ MODKEY|ShiftMask|ControlMask, XK_m,                       spawn,          {.v = ncmpcpp_pop } },
 	{ MODKEY|ControlMask,           XK_m,                       spawn,          {.v = ytfzf_audio_tune } },
-	{ MODKEY,                       XK_n,                       spawn,          {.v = netflix } },
-	{ MODKEY|ShiftMask|ControlMask, XK_n,                       spawn,          {.v = netflix_pop } },
+	{ MODKEY,                       XK_n,                       spawn,          {.v = vim_notes } },
+	{ MODKEY|ShiftMask|ControlMask, XK_n,                       spawn,          {.v = netflix } },
 	{ MODKEY|ShiftMask|ControlMask, XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
@@ -157,19 +154,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_s,                       spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
 	{ MODKEY|ControlMask,           XK_s,                       spawn,          SHCMD ("amixer sset Master mute")},
 	{ MODKEY|ShiftMask,             XK_s,                       spawn,          SHCMD ("amixer sset Master 5%- unmute")},
-	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_t,                       spawn,          {.v = vim_todos } },
 	{ MODKEY,                       XK_v,                       spawn,          {.v = vim } },
-	{ MODKEY|ShiftMask,             XK_v,                       spawn,          {.v = vimwiki_quick } },
-	{ MODKEY|ControlMask,           XK_v,                       spawn,          {.v = vimwiki } },
-	{ MODKEY,                       XK_w,                       spawn,          {.v = lemonade } },
-	{ MODKEY|ControlMask,           XK_w,                       spawn,          {.v = vinagre } },
+	{ MODKEY,                       XK_w,                       spawn,          {.v = vim_wiki } },
 	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
-	{ MODKEY,                       XK_z,                       spawn,          {.v = ebook } },
-	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = zathura } },
-	{ MODKEY|ShiftMask|ControlMask, XK_z,                       spawn,          {.v = ebookpop } },
+	{ MODKEY,                       XK_z,                       spawn,          {.v = zathura_ebook } },
+	{ MODKEY|ShiftMask,             XK_z,                       spawn,          {.v = zathura_home } },
  	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 50y 0w 0h" } },
  	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -50y 0w 0h" } },
  	{ MODKEY,                       XK_Right,  moveresize,     {.v = "50x 0y 0w 0h" } },
