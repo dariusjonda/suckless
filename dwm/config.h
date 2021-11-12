@@ -74,35 +74,36 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]             = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
-static const char *st[]                = { "st", NULL };
-static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
-static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
+static char dmenumon[2]                = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *browsercmd[]        = { "firefox", NULL };
 static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
-static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
-static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
-static const char *zathura_ebook[]     = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/ebooks", NULL };
-static const char *zathura_home[]      = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
+static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
-static const char *browsercmd[]        = { "firefox", NULL };
-static const char *flameshotgui[]      = { "st", "-e", "flameshot", "gui", NULL };
-static const char *plexpop[]           = { "plexmediaplayer", NULL };
-static const char *vim_todos[]         = { "st", "-n", "vim", "-e", "vim_todos", NULL };
-static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
-static const char *vim_wiki[]           = { "st", "-n", "wiki", "-e", "vim_wiki", NULL };
-static const char *vim_notes[]     = { "st", "-n", "vim", "-e", "vim_notes", NULL };
-static const char *ranger[]            = { "st", "-e", "ranger", NULL };
+static const char *flameshotgui[]      = { "flameshot", "gui", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
-static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tql", "--detach", NULL };
-static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
-static const char *ytfzf_audio_tune[]  = { "st", "-n", "tune", "-e", "ytfzf", "-mqs", NULL };
-static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "-e", "ytfzf", "-St", NULL };
+static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
+static const char *plexpop[]           = { "plexmediaplayer", NULL };
+static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
-static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
+static const char *st[]                = { "st", NULL };
+static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
+static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
+static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
+static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
+static const char *vim_notes[]         = { "st", "-n", "vim", "-e", "vim_notes", NULL };
+static const char *vim_todos[]         = { "st", "-n", "vim", "-e", "vim_todos", NULL };
+static const char *vim_wiki[]          = { "st", "-n", "wiki", "-e", "vim_wiki", NULL };
+static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
+static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tql", "--detach", NULL };
+static const char *ytfzf_dmenu[]       = { "ytfzf", "-D", NULL };
+static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio_tune[]  = { "st", "-n", "swallow", "ytfzf", "-Dm", NULL };
+static const char *ytfzf_subs[]        = { "ytfzf", "-DS", NULL };
+static const char *zathura_ebook[]     = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/ebooks", NULL };
+static const char *zathura_home[]      = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
 
 #include "movestack.c"
 #include <X11/XF86keysym.h>
@@ -159,6 +160,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vim_wiki } },
 	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka } },
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
+	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_dmenu } },
 	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },
 	{ MODKEY|ControlMask,           XK_y,                       spawn,          {.v = ytfzf_subs } },
 	{ MODKEY,                       XK_z,                       spawn,          {.v = zathura_ebook } },
@@ -192,8 +194,9 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol,          0,              Button3,        setlayout,      {0} },
+	{ ClkLtSymbol,          0,              Button1,        setlayout,      {.v = &layouts[4]} },
+	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[0]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = st } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
