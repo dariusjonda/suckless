@@ -28,7 +28,7 @@ static const unsigned int alphas[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "tune", "wiki", "book", "mail", "work", "rest"};
+static const char *tags[] = { "base", "work", "tune", "wiki", "book", "mail", "play"};
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -38,11 +38,11 @@ static const Rule rules[] = {
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
-	{ "st",      "tune",  NULL,            1 << 1,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "wiki",  NULL,            1 << 2,    1,  		0,          1,          0,           1,        -1 },
-	{ "st",      "ebook",  NULL,           1 << 3,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "email",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "work", NULL,             1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "work", NULL,             1 << 1,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "tune",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "wiki",  NULL,            1 << 3,    1,  		0,          1,          0,           1,        -1 },
+	{ "st",      "ebook",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "email",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
@@ -75,7 +75,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2]                = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *browsercmd[]        = { "firefox", NULL };
+static const char *firefox[]           = { "firefox", NULL };
+static const char *brave[]             = { "brave", NULL };
 static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
 static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
@@ -127,7 +128,8 @@ static Key keys[] = {
   { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
 	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailpop } },
-	{ MODKEY,                       XK_f,                       spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_f,                       spawn,          {.v = firefox } },
+	{ MODKEY|ControlMask,           XK_f,                       spawn,          {.v = brave } },
 	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = flameshotgui } },
 	{ MODKEY,                       XK_g,                       setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_g,                       setlayout,      {.v = &layouts[2]} },
