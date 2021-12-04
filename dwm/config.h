@@ -37,13 +37,14 @@ static const Rule rules[] = {
 	{ "st",      "vim",    NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
-	{ "plexmediaplayer", NULL, NULL,      -1,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "work", NULL,             1 << 1,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "tune",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "wiki",  NULL,            1 << 3,    1,  		0,          1,          0,           1,        -1 },
 	{ "st",      "ebook",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "email",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
+	{ "plexmediaplayer", NULL, NULL,       1 << 6,    1,  		0,          1,          1,           0,        -1 },
+	{ "steam",   NULL, NULL,               1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,  		0,          0,          0,           1,        -1 }, /* xev */
 };
 
@@ -90,6 +91,7 @@ static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 static const char *st[]                = { "st", NULL };
+static const char *steam_play[]        = { "steam", NULL };
 static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
 static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
@@ -150,6 +152,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_m,                       spawn,          {.v = ytfzf_audio_tune } },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = vim_notes } },
 	{ MODKEY|ShiftMask|ControlMask, XK_n,                       spawn,          {.v = netflix } },
+	{ MODKEY,                       XK_p,                       spawn,          {.v = steam_play } },
 	{ MODKEY|ShiftMask|ControlMask, XK_p,                       spawn,          {.v = plexpop } },
 	{ MODKEY|ControlMask,           XK_q,                       spawn,          {.v = suspend} },
 	{ MODKEY,                       XK_r,                       spawn,          {.v = ranger } },
