@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx    = 3;        /* border pixel of windows */
-static const int gappx                = 3;        /* gaps between windows */
+static const unsigned int borderpx    = 1;        /* border pixel of windows */
+static const int gappx                = 1;        /* gaps between windows */
 static const unsigned int snap        = 0;        /* snap pixel */
 static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
 static const int showbar              = 1;        /* 0 means no bar */
@@ -77,10 +77,11 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2]                = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *firefox[]           = { "firefox", NULL };
-static const char *brave[]             = { "brave", NULL };
+static const char *brave[]             = { "mullvad-exclude", "brave", NULL };
 static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
-static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
+static const char *dmenucmd[]          = { "dmenu-recent-aliases", NULL };
 static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
+static const char *email_mutt[]        = { "st", "-n", "email", "-e", "mutt", NULL };
 static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
 static const char *flameshotgui[]      = { "flameshot", "gui", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
@@ -91,20 +92,20 @@ static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 static const char *st[]                = { "st", NULL };
-static const char *steam_play[]        = { "steam", NULL };
+static const char *st_mlvd_exclude[]   = { "mullvad-exclude", "st", NULL };
+static const char *steam_play[]        = { "mullvad-exclude", "steam", NULL };
 static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
-static const char *stswallow[]         = { "st", "-n", "swallow", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
 static const char *vim_notes[]         = { "st", "-n", "vim", "-e", "vim_notes", NULL };
 static const char *vim_todos[]         = { "st", "-n", "vim", "-e", "vim_todos", NULL };
 static const char *vim_wiki[]          = { "st", "-n", "wiki", "-e", "vim_wiki", NULL };
 static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
-static const char *ytfzf[]             = { "st", "-e", "ytfzf", "-tql", "--detach", NULL };
-static const char *ytfzf_dmenu[]       = { "ytfzf", "-D", NULL };
-static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
-static const char *ytfzf_audio_tune[]  = { "st", "-n", "swallow", "ytfzf", "-Dm", NULL };
-static const char *ytfzf_subs[]        = { "ytfzf", "-DS", NULL };
+static const char *ytfzf[]             = { "mullvad-exclude", "st", "-e", "ytfzf", "-tql", "--detach", NULL };
+static const char *ytfzf_dmenu[]       = { "mullvad-exclude", "ytfzf", "-D", NULL };
+static const char *ytfzf_audio_pop[]   = { "mullvad-exclude", "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio_tune[]  = { "mullvad-exclude", "st", "-n", "swallow", "ytfzf", "-Dm", NULL };
+static const char *ytfzf_subs[]        = { "mullvad-exclude", "ytfzf", "-DS", "--sort", NULL };
 static const char *zathura_ebook[]     = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/ebooks", NULL };
 static const char *zathura_home[]      = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
 
@@ -119,7 +120,7 @@ static Key keys[] = {
  	{ MODKEY|ControlMask,           XK_period,                  setcentered,    {0} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = st } },
-	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = stswallow } },
+	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = st_mlvd_exclude } },
 	{ MODKEY|ShiftMask|ControlMask, XK_Return,                  spawn,          {.v = stpop } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
@@ -129,6 +130,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, XK_c,                       spawn,          {.v = cr } },
   { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
+	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = email_mutt } },
 	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailpop } },
 	{ MODKEY,                       XK_f,                       spawn,          {.v = firefox } },
 	{ MODKEY|ControlMask,           XK_f,                       spawn,          {.v = brave } },
