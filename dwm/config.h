@@ -7,8 +7,8 @@ static const unsigned int snap        = 0;        /* snap pixel */
 static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
-static const char *fonts[]            = { "FiraCode-Regular:size=15" };
-static const char dmenufont[]         = "FiraCode-Regular:size=15";
+static const char *fonts[]            = { "FiraCode-Regular:size=10" };
+static const char dmenufont[]         = "FiraCode-Regular:size=10";
 static const char col_cyan[]          = "#005577";
 static const char col_dark_grey[]     = "#030303";
 static const char col_green[]         = "#a3be8c";
@@ -28,7 +28,7 @@ static const unsigned int alphas[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "base", "work", "tune", "wiki", "book", "mail", "play"};
+static const char *tags[] = { "base", "mail", "tune", "work", "wiki", "book", "play"};
 
 static const Rule rules[] = {
 	/* class     instance  title      tags mask  switchtotag  isfloating  iscentered  isterminal  noswallow  monitor */
@@ -37,11 +37,11 @@ static const Rule rules[] = {
 	{ "st",      "vim",    NULL,           0,         0,  		0,          1,          0,           1,        -1 },
 	{ "st",      "pop",    NULL,           0,         0,  		1,          1,          1,           0,        -1 },
 	{ "st",      "popmaster", NULL,       -1,         0,  		1,          1,          1,           0,        -1 },
-	{ "st",      "work", NULL,             1 << 1,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "email",  NULL,           1 << 1,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "tune",  NULL,            1 << 2,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "wiki",  NULL,            1 << 3,    1,  		0,          1,          0,           1,        -1 },
-	{ "st",      "ebook",  NULL,           1 << 4,    1,  		0,          1,          1,           0,        -1 },
-	{ "st",      "email",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "work", NULL,             1 << 3,    1,  		0,          1,          1,           0,        -1 },
+	{ "st",      "wiki",  NULL,            1 << 4,    1,  		0,          1,          0,           1,        -1 },
+	{ "st",      "ebook",  NULL,           1 << 5,    1,  		0,          1,          1,           0,        -1 },
 	{ "st",      "media",  NULL,           1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ "plexmediaplayer", NULL, NULL,       1 << 6,    1,  		0,          1,          1,           0,        -1 },
 	{ "steam",   NULL, NULL,               1 << 6,    1,  		0,          1,          1,           0,        -1 },
@@ -77,36 +77,38 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2]                = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *firefox[]           = { "firefox", NULL };
-static const char *brave[]             = { "mullvad-exclude", "brave", NULL };
+static const char *brave[]             = { "brave", NULL };
 static const char *cr[]                = { "st", "-n", "swallow", "-e", "cr_kiosk", "-tml", NULL };
 static const char *dmenucmd[]          = { "dmenu-recent-aliases", NULL };
-static const char *email[]             = { "st", "-n", "email", "-e", "tutanota-desktop", NULL };
-static const char *email_mutt[]        = { "st", "-n", "email", "-e", "mutt", NULL };
-static const char *emailpop[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
+static const char *email[]             = { "st", "-n", "email", "-e", "thunderbird", NULL };
+static const char *emailpop[]          = { "st", "-n", "pop", "-e", "thunderbird", NULL };
+static const char *emailmutt[]          = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", "-e", "mutt", NULL };
+static const char *email_tuta[]        = { "tutanota-desktop", NULL };
 static const char *flameshotgui[]      = { "flameshot", "gui", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
+static const char *ncpamixer[]         = { "st", "-n", "pop", "-e", "ncpamixer", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
 static const char *plexpop[]           = { "plexmediaplayer", NULL };
 static const char *ranger[]            = { "st", "-e", "ranger", NULL };
 static const char *rangerpop[]         = { "st", "-n", "pop", "-e", "ranger", NULL };
 static const char *slock[]             = { "/bin/sh", "-c", "slock", NULL };
 static const char *st[]                = { "st", NULL };
-static const char *st_mlvd_exclude[]   = { "mullvad-exclude", "st", NULL };
-static const char *steam_play[]        = { "mullvad-exclude", "steam", NULL };
-static const char *stpop[]             = { "st", "-n", "pop", "-g", "70x20", "-f", "FiraCode-Regular:size=8", NULL };
+static const char *st_swallow[]        = { "st", "-n", "swallow", NULL };
+static const char *steam_play[]        = { "steam", NULL };
+static const char *stpop[]             = { "st", "-n", "pop", "-g", "85x25", NULL };
 static const char *suspend[]           = { "/bin/sh", "-c", "systemctl suspend", NULL };
 static const char *vim[]               = { "st", "-n", "vim", "-e", "nvim", NULL };
 static const char *vim_notes[]         = { "st", "-n", "vim", "-e", "vim_notes", NULL };
 static const char *vim_todos[]         = { "st", "-n", "vim", "-e", "vim_todos", NULL };
 static const char *vim_wiki[]          = { "st", "-n", "wiki", "-e", "vim_wiki", NULL };
 static const char *waka[]              = { "st", "-n", "swallow", "-e", "waka_kiosk", "-tml", NULL };
-static const char *ytfzf[]             = { "mullvad-exclude", "st", "-e", "ytfzf", "-tql", "--detach", NULL };
-static const char *ytfzf_dmenu[]       = { "mullvad-exclude", "ytfzf", "-D", NULL };
-static const char *ytfzf_audio_pop[]   = { "mullvad-exclude", "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
-static const char *ytfzf_audio_tune[]  = { "mullvad-exclude", "st", "-n", "swallow", "ytfzf", "-Dm", NULL };
-static const char *ytfzf_subs[]        = { "mullvad-exclude", "ytfzf", "-DS", "--sort", NULL };
-static const char *zathura_ebook[]     = { "st", "-n", "ebook", "-e", "zathura_ebook", "~/ebooks", NULL };
+static const char *ytfzf[]             = { "st", "-n", "swallow", "ytfzf", "-tls", NULL };
+static const char *ytfzf_dmenu[]       = { "ytfzf", "-D", NULL };
+static const char *ytfzf_audio_pop[]   = { "st", "-n", "pop", "-f", "FiraCode-Regular:size=8", "-e", "ytfzf", "-mqs", NULL };
+static const char *ytfzf_audio_tune[]  = { "st", "-n", "swallow", "-e", "ytfzf", "-Dm", NULL };
+static const char *ytfzf_subs[]        = { "st", "-n", "swallow", "ytfzf", "-t", "-c", "S", "--sort", NULL };
+static const char *zathura_ebook[]     = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/ebooks", NULL };
 static const char *zathura_home[]      = { "st", "-n", "swallow", "-e", "zathura_ebook", "~/", NULL };
 
 #include "movestack.c"
@@ -120,18 +122,20 @@ static Key keys[] = {
  	{ MODKEY|ControlMask,           XK_period,                  setcentered,    {0} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = st } },
-	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = st_mlvd_exclude } },
+	{ MODKEY|ControlMask,           XK_Return,                  spawn,          {.v = st_swallow } },
 	{ MODKEY|ShiftMask|ControlMask, XK_Return,                  spawn,          {.v = stpop } },
   { MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ NULL,                         XK_Super_R,                 spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
+	{ MODKEY,                       XK_a,                       spawn,          {.v = ncpamixer } },
 	{ MODKEY,                       XK_b,                       togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_c,                       killclient,     {0} },
 	{ MODKEY|ShiftMask|ControlMask, XK_c,                       spawn,          {.v = cr } },
   { MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,                       spawn,          {.v = email } },
-	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = email_mutt } },
-	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailpop } },
+	{ MODKEY|ShiftMask,             XK_e,                       spawn,          {.v = emailpop } },
+	{ MODKEY|ControlMask,           XK_e,                       spawn,          {.v = email_tuta } },
+	{ MODKEY|ShiftMask|ControlMask, XK_e,                       spawn,          {.v = emailmutt } },
 	{ MODKEY,                       XK_f,                       spawn,          {.v = firefox } },
 	{ MODKEY|ControlMask,           XK_f,                       spawn,          {.v = brave } },
 	{ MODKEY|ShiftMask,             XK_f,                       spawn,          {.v = flameshotgui } },
@@ -166,6 +170,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,                       spawn,          {.v = vim } },
 	{ MODKEY,                       XK_w,                       spawn,          {.v = vim_wiki } },
 	{ MODKEY|ShiftMask|ControlMask, XK_w,                       spawn,          {.v = waka } },
+	{ MODKEY,                       XK_x,                       spawn,          SHCMD ("autorandr mobile")},
+	{ MODKEY|ControlMask,           XK_x,                       spawn,          SHCMD ("autorandr fullhd")},
+	{ MODKEY|ShiftMask,             XK_x,                       spawn,          SHCMD ("autorandr --cycle")},
+	{ MODKEY|ShiftMask|ControlMask, XK_x,                       spawn,          SHCMD ("autorandr dual-fullhd")},
 	{ MODKEY,                       XK_y,                       spawn,          {.v = ytfzf } },
 	{ MODKEY|ShiftMask,             XK_y,                       spawn,          {.v = ytfzf_dmenu } },
 	{ MODKEY|ShiftMask|ControlMask, XK_y,                       spawn,          {.v = ytfzf_audio_pop } },

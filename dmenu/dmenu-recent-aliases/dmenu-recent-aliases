@@ -2,7 +2,7 @@
 cache=~/.cache/dmenu_run
 freq=~/.dmenu_history
 aliases=~/.aliasrc
-dmenucmd='dmenu_run -m 0 -fn FiraCode-Regular:size=15'
+dmenucmd='dmenu -m 0 -fn FiraCode-Regular:size=10'
 
 source $aliases
 
