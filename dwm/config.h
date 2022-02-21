@@ -86,6 +86,7 @@ static const char *emailmutt[]          = { "st", "-n", "pop", "-g", "70x20", "-
 static const char *email_tuta[]        = { "tutanota-desktop", NULL };
 static const char *flameshotgui[]      = { "flameshot", "gui", NULL };
 static const char *ncmpcpp_tune[]      = { "st", "-n", "tune", "-e", "ncmpcpp", NULL };
+static const char *spotify[]           = { "st", "-n", "tune", "-e", "spt", NULL };
 static const char *ncmpcpp_pop[]       = { "st", "-n", "pop", "-g", "60x12", "-f", "FiraCode-Regular:size=8", "-e", "ncmpcpp", NULL };
 static const char *ncpamixer[]         = { "st", "-n", "pop", "-e", "ncpamixer", NULL };
 static const char *netflix[]           = { "st", "-n", "media", "-e", "netflix_kiosk", "-tml", NULL };
@@ -154,8 +155,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,                       tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_l,                       spawn,          {.v = slock } },
 	{ MODKEY,                       XK_m,                       spawn,          {.v = ncmpcpp_tune } },
+	{ MODKEY|ShiftMask,             XK_m,                       spawn,          {.v = spotify } },
 	{ MODKEY|ShiftMask|ControlMask, XK_m,                       spawn,          {.v = ncmpcpp_pop } },
-	{ MODKEY|ControlMask,           XK_m,                       spawn,          {.v = ytfzf_audio_tune } },
 	{ MODKEY,                       XK_n,                       spawn,          {.v = vim_notes } },
 	{ MODKEY|ShiftMask|ControlMask, XK_n,                       spawn,          {.v = netflix } },
 	{ MODKEY,                       XK_p,                       spawn,          {.v = steam_play } },

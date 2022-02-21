@@ -6,9 +6,9 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 // for HDMI // 4k multi monitor setup
-static char *font = "FiraCode-Regular:pixelsize=30:antialias=true:autohint=true";
+// static char *font = "FiraCode-Regular:pixelsize=30:antialias=true:autohint=true";
 // for laptop screen only
-// static char *font = "FiraCode-Regular:pixelsize=14:antialias=true:autohint=true";
+static char *font = "FiraCode-Regular:pixelsize=14:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
